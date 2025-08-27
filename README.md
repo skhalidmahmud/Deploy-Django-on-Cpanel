@@ -31,7 +31,7 @@ A comprehensive guide to deploying Django applications on shared hosting environ
    pip freeze > requirements.txt
    ```
 1. **Update settings.py**:DEBUG = False
-ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com', 'server-ip']
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com', 'server-ip'] # or just "*" for any website
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 2. **Collect static files**:python manage.py collectstatic
 ### 2. Setup Python Environment
@@ -64,7 +64,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
         'PORT': '3306',
     }
 }
-3. Run migrations:python manage.py migrate
+3. Run migrations: `python manage.py migrate`
 ### 5. Modify Django Settings
 Add security settings:
 
@@ -75,18 +75,19 @@ CSRF_COOKIE_SECURE = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 ```
+
 ### 6. Setup Domain/Subdomain
 1. In cPanel:
     - **Domains** → Create new domain/subdomain
     - Document root: `/home/username/myproject/public` 
 2. Create `public`  directory:mkdir public
+
 ### 7. Configure Passenger WSGI
 Create `passenger_wsgi.py` in project root:
 
 ```python
 from yourProjectname.wsgi import application
 ```
-
 
 ### 8. Create .htaccess File
 In `public/` directory:
@@ -100,6 +101,7 @@ PassengerPython /home/username/virtualenv/myproject/3.8/bin/python
     AddOutputFilterByType DEFLATE text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
 </IfModule>
 ```
+
 ### 9. Finalize Deployment
 1. Restart Python app in cPanel
 2. Set file permissions:find . -type d -exec chmod 755 {} \;
@@ -154,11 +156,3 @@ This project is licensed under the MIT License - see the [﻿LICENSE](https://li
    - Multiple upload options
    - Verification steps
    - Troubleshooting guide
-
-To use this:
-1. Replace your existing README.md with this content
-2. Add a LICENSE file with MIT license text
-3. Ensure your repository follows the folder structure referenced
-4. Consider adding screenshots in a separate docs/ folder if needed
-
-This single-file README provides a complete, professional deployment guide following documentation best practices while maintaining all technical details needed for successful Django deployment on shared hosting.
